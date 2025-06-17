@@ -26,7 +26,10 @@ export default [
       ...eslintPluginReact.configs.recommended.rules,
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
-      'no-trailing-spaces': 'error'
+      'no-trailing-spaces': 'error',
+      'semi': 'error',
+      'jsx-quotes': ['error', 'prefer-double'],
+      'quotes': ['error', 'single']
     },
   },
   {
