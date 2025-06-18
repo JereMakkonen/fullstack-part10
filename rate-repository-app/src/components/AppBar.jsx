@@ -1,8 +1,11 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
+import { useQuery } from '@apollo/client';
 
+import { ME } from '../graphql/queries';
 import Text from './Text';
+import SignOut from './SignOut';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -10,14 +13,11 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.appBarBackground,
     flexDirection: 'row'
-  },
-  tab: {
-    padding: 10,
-  },
+  }
 });
 
 const Tab = ({ text, path }) => (
-  <Link to={path} style={styles.tab}>
+  <Link to={path} style={{ padding: 10 }}>
     <Text color="white" fontSize="subheading" fontWeight="bold">
       {text}
     </Text>
@@ -25,11 +25,13 @@ const Tab = ({ text, path }) => (
 );
 
 const AppBar = () => {
+  const { data } = useQuery(ME);
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <Tab text="Repositories" path="/" />
-        <Tab text="Sign in" path="/SignIn" />
+        {data?.me ? <SignOut /> : <Tab text="Sign in" path="/SignIn" />}
       </ScrollView>
     </View>
   );
