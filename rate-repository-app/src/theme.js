@@ -8,7 +8,7 @@ const theme = {
     primary: '#0366d6',
     secondary: 'grey',
     error: '#d73a4a',
-    mainBackground: 'lightgrey',
+    mainBackground: '#f0f0f0',
     background: '#0366d6',
     appBarBackground: '#24292e',
   },

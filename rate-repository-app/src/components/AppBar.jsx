@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 
-import { ME } from '../graphql/queries';
+import { GET_CURRENT_USER } from '../graphql/queries';
 import Text from './Text';
 import SignOut from './SignOut';
 import theme from '../theme';
@@ -25,13 +25,24 @@ const Tab = ({ text, path }) => (
 );
 
 const AppBar = () => {
-  const { data } = useQuery(ME);
+  const { data } = useQuery(GET_CURRENT_USER);
 
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <Tab text="Repositories" path="/" />
-        {data?.me ? <SignOut /> : <Tab text="Sign in" path="/SignIn" />}
+        {data?.me ?
+          <>
+            <Tab text="Create a review" path="/review" />
+            <Tab text="My reviews" path="/reviews" />
+            <SignOut />
+          </>
+          :
+          <>
+            <Tab text="Sign in" path="/SignIn" />
+            <Tab text="Sign up" path="/SignUp" />
+          </>
+        }
       </ScrollView>
     </View>
   );
